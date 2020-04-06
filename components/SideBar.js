@@ -17,7 +17,7 @@ export default SideBar = props => (
         </ImageBackground>
 
         <View style={styles.container}>
-            <DrawerNavigatorItems {...props}/>
+            <DrawerNavigatorItems {...props} style={{ fontFamily: 'ProductSans-Regular' }}/>
         </View>
     </ScrollView>
 )
@@ -35,12 +35,13 @@ const styles = StyleSheet.create({
     },
     name: {
         color: '#fff',
+        fontFamily: 'ProductSans-Bold',
         fontSize: 20,
-        fontWeight: 'bold',
         marginVertical: 8
     },
     followers: {
         color: 'rgba(255,255,255,0.8)',
+        fontFamily: 'ProductSans-Regular',
         fontSize: 13,
         marginRight: 4
     }

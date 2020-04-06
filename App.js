@@ -1,72 +1,36 @@
-import React from 'react';
-import { createAppContainer } from 'react-navigation'
-import { createDrawerNavigator } from 'react-navigation-drawer'
-import { Dimensions } from 'react-native'
+import React from 'react'
+import { View, Container } from 'react-native'
+import MainApp from './MainApp'
+import { render } from 'react-dom'
 
-import { Feather } from '@expo/vector-icons'
-import { HomeScreen, ProfileScreen, ActivityScreen, ReportScreen, ListScreen, StatisticScreen } from './screens'
-import SideBar from './components/SideBar'
+import { AppLoading } from 'expo'
+import * as Font from 'expo-font'
 
-const DrawerNavigator = createDrawerNavigator({
-  HomeScreen: {
-    screen: HomeScreen,
-    navigationOptions: {
-      title: "Home",
-      drawerIcon: ({ tintColor }) => <Feather name="home" size={16} color={tintColor}/>
-    }
-  },
-  ProfileScreen: {
-    screen: ProfileScreen,
-    navigationOptions: {
-      title: "Profile",
-      drawerIcon: ({tintColor}) => <Feather name="user" size={16} color={tintColor}/>
-    }
-  },
-  ActivityScreen: {
-    screen: ActivityScreen,
-    navigationOptions: {
-      title: "Activity",
-      drawerIcon: ({tintColor}) => <Feather name="activity" size={16} color={tintColor}/>
-    }
-  },
-  ReportScreen: {
-    screen: ReportScreen,
-    navigationOptions: {
-      title: "Report",
-      drawerIcon: ({tintColor}) => <Feather name="clipboard" size={16} color={tintColor}/>
-    }
-  }, 
-  ListScreen: {
-    screen: ListScreen,
-    navigationOptions: {
-      title: "List",
-      drawerIcon: ({tintColor}) => <Feather name="list" size={16} color={tintColor}/>
-    }
-  },
-  StatisticScreen: {
-    screen: StatisticScreen,
-    navigationOptions: {
-      title: "Statistics",
-      drawerIcon: ({tintColor}) => <Feather name="trending-up" size={16} color={tintColor}/>
+const fetchFonts = () => {
+  return Font.loadAsync({
+    'ProductSans-Regular': require('./assets/fonts/google-sans-cufonfonts/ProductSans-Regular.ttf'),
+    'ProductSans-Italic': require('./assets/fonts/google-sans-cufonfonts/ProductSans-Italic.ttf'),
+    'ProductSans-Bold': require('./assets/fonts/google-sans-cufonfonts/ProductSans-Bold.ttf'),
+  })
+}
+
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isDataLoaded: false
     }
   }
-},
-{
-  contentComponent: props => <SideBar {...props}/>,
-  hideStatusBar: true,
-  drawerWidth: 350,
-  
-  contentOptions: {
-    activeBackgroundColor: "rgba(212,118,207,0.2)",
-    activeTintColor: "#531158",
-    itemsContainerStyle: {
-      marginTop: 8,
-      marginHorizontal: 8
-    },
-    itemStyle: {
-      borderRadius: 8
+
+  render() {
+    if (!this.state.isDataLoaded) {
+      return(
+        <AppLoading startAsync={fetchFonts} onFinish={() => this.setState({isDataLoaded: true})}/>
+      )
+    } else {
+      return <MainApp />;
     }
   }
-})
-
-export default createAppContainer(DrawerNavigator)
+}
