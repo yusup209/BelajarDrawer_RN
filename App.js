@@ -55,6 +55,18 @@ const DrawerNavigator = createDrawerNavigator({
   contentComponent: props => <SideBar {...props}/>,
   hideStatusBar: true,
   drawerWidth: 350,
+  
+  contentOptions: {
+    activeBackgroundColor: "rgba(212,118,207,0.2)",
+    activeTintColor: "#531158",
+    itemsContainerStyle: {
+      marginTop: 8,
+      marginHorizontal: 8
+    },
+    itemStyle: {
+      borderRadius: 8
+    }
+  }
 })
 
 export default createAppContainer(DrawerNavigator)
